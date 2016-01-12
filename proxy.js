@@ -54,9 +54,9 @@ var server = http.createServer(function(req, res) {
   }
 
   var domain = 'http://0.0.0.0:' + targetPort
-  proxy.web(req, res, { target: domain });
+  proxy.web(req, res, { target: domain })
 });
 
 var listenPort = 20559
 log.info('Listening on ' + listenPort)
-server.listen(20559);
+server.listen(20559)
