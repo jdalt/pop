@@ -10,4 +10,4 @@ npm run dns
 npm run proxy
 ```
 
-Note: the install script will overwrite the `/etc/resolver/dev` file that pow uses and unload pow.
+Note: the install script will overwrite the `/etc/resolver/dev` file that pow uses and unload pow. You will probably want to rewrite the file `ports.json` with whatever ports you want to proxy to.
