@@ -24,6 +24,7 @@ proxy.on('error', function (err, req, res) {
   var popPort = req.headers['POP_PROXY_PORT']
   err.popPort = popPort
   log.error(err)
+  res.writeHead(500, {'Content-Type': 'text/plain'})
   res.end('Unable to contact proxied port: ' + popPort)
 })
 
