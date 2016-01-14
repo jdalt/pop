@@ -29,7 +29,7 @@ proxy.on('proxyRes', function(proxyRes, req, res, options) {
 })
 
 // TODO: reread file on change
-var configJson = JSON.parse(fs.readFileSync('ports.json'));
+var configJson = JSON.parse(fs.readFileSync('./config/ports.json'));
 var ports = configJson.ports
 log.info({portConfig: ports })
 
