@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+var readline = require('readline'),
+  colors = require('colors'),
+  _ = require('lodash'),
+  prettyjson = require('prettyjson'),
+  moment = require('moment')
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false
+});
+
+rl.on('line', function(line){
+  log = JSON.parse(line)
+  console.log(summaryString(log))
+})
+
+var allColors = {
+  0: 'red',
+  1: 'grey',
+  2: 'cyan',
+  3: 'grey',
+  4: 'green',
+  5: 'grey',
+  6: 'cyan',
+  7: 'yellow',
+  8: 'blue',
+  9: 'rainbow'
+}
+
+function summaryString(log) {
+  var topLine = log.uuid + ' T' + moment(log.time).format('ss.SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+
+  var extraDetails = {}
+  if(log.body && !_.isEmpty(log.body)) {
+    extraDetails = { body: log.body, headers: log.headers }
+  } else {
+    extraDetails = { headers: log.headers }
+  }
+
+  var headerLine = prettyjson.render(extraDetails, { noColor: true})
+
+  var portColor = allColors[(log.port || 0) % 10]
+  if(log.type == 'response') {
+    return colors[portColor](topLine + '\n' + headerLine + '\n').inverse
+  } else {
+    return colors[portColor](topLine + '\n' + headerLine + '\n')
+  }
+}
+
