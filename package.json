@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "proxy": "node proxy.js | node_modules/bunyan/bin/bunyan",
-    "proxy2": "node proxy_2.js | ./formatLog",
+    "proxy": "node proxy.js | ./formatLog",
     "dns": "node dns.js | node_modules/bunyan/bin/bunyan"
   },
   "author": "",

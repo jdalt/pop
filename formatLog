@@ -31,7 +31,7 @@ var allColors = {
 }
 
 function summaryString(log) {
-  var topLine = log.uuid + ' T' + moment(log.time).format('ss.SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+  var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
 
   var extraDetails = {}
   if(log.body && !_.isEmpty(log.body)) {
