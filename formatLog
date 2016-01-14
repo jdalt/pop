@@ -31,22 +31,28 @@ var allColors = {
 }
 
 function summaryString(log) {
-  var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
-
-  var extraDetails = {}
-  if(log.body && !_.isEmpty(log.body)) {
-    extraDetails = { body: log.body, headers: log.headers }
-  } else {
-    extraDetails = { headers: log.headers }
-  }
-
-  var headerLine = prettyjson.render(extraDetails, { noColor: true})
+  if(!log.type || !log.port) return log
 
   var portColor = allColors[(log.port || 0) % 10]
+
   if(log.type == 'response') {
-    return colors[portColor](topLine + '\n' + headerLine + '\n').inverse
+    var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.statusCode + ' ' +  log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+    var extra = prettyjson.render(extraDetails(log.responseBody, log.responseHeaders), { noColor: true})
+    return colors[portColor](topLine + '\n' + extra + '\n').inverse
   } else {
-    return colors[portColor](topLine + '\n' + headerLine + '\n')
+    var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+    var extra = prettyjson.render(extraDetails(log.body, log.headers), { noColor: true})
+    return colors[portColor](topLine + '\n' + extra + '\n')
   }
+}
+
+function extraDetails(body, headers) {
+  if(body && !_.isEmpty(body)) {
+    return {
+      body: body,
+      headers: headers
+    }
+  }
+  return { headers: headers }
 }
 
