@@ -4,6 +4,7 @@ var http = require('http'),
     restreamer = require('connect-restreamer'),
     proxyKit = require('./lib/proxy-kit.js')()
 
+// TODO: find out why this fails on UserService log ins
 var app = connect()
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({extended: true}))
