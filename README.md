@@ -5,7 +5,7 @@ This is an attempt to make a really well logged and easy to modify tld to port p
 ## Run
 
 ```
-./install.sh
+./install/install.sh
 npm run dns
 npm run proxy
 ```
