@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "proxy": "node proxy.js | ./formatLog",
+    "body-proxy": "node body_proxy.js | ./formatLog",
     "dns": "node dns.js | node_modules/bunyan/bin/bunyan"
   },
   "author": "",
