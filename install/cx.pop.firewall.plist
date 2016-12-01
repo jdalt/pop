@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
         <key>Label</key>
-        <string>cx.pow.firewall</string>
+        <string>cx.pop.firewall</string>
         <key>ProgramArguments</key>
         <array>
                 <string>/bin/sh</string>
                 <string>-c</string>
                 <string>
                   sysctl -w net.inet.ip.forwarding=1;
-                  echo "rdr pass proto tcp from any to any port {80,20559} -> 127.0.0.1 port 20559" | pfctl -a "com.apple/250.PowFirewall" -Ef -
+                  echo "rdr pass proto tcp from any to any port {80,20558} -> 127.0.0.1 port 20558" | pfctl -a "com.apple/250.PopFirewall" -Ef -
                 </string>
         </array>
         <key>RunAtLoad</key>
