@@ -1,0 +1,4 @@
+---
+app.domain: 3000,
+ui.domain: 3001,
+service.domain: 3002

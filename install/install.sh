@@ -10,10 +10,10 @@ then
 fi
 sudo cp dev /etc/resolver/
 
-if [ ! -f ../config/ports.json ];
+if [ ! -f ../config/ports.yml ];
 then
-  echo "Copied example ports file to ../config/ports.json"
-  cp ../config/ports_example.json ../config/ports.json
+  echo "Copied example ports file to ../config/ports.yml"
+  cp ../config/ports_example.yml ../config/ports.yml
 fi
 
 # remove templated files if they already exist

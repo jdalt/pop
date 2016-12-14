@@ -1,8 +1,0 @@
-{
-  "ports": {
-    "dumbo": 3000,
-    "mickey": 3001,
-    "grover": 3002
-  }
-}
-
