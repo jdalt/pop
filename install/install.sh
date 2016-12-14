@@ -23,7 +23,8 @@ then
 fi
 
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # load nvm
-nvm use 6.9.2
+
+nvm install 6.9.2 # installs (if missing) and switches node version
 npm install
 ./../node_modules/gulp/bin/gulp.js build
 sudo chown root *.plist
