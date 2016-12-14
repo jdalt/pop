@@ -1,3 +1,5 @@
 node_modules
 ports.json
 log
+install/dev
+install/*.plist
