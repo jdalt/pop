@@ -2,8 +2,8 @@
 
 TEMPLATES=templates/generated
 
-sudo launchctl unload ~/Library/LaunchAgents/cx.pop.*
+sudo launchctl unload ~/Library/LaunchAgents/github.jdalt.pop.*
 
-sudo rm ~/Library/LaunchAgents/cx.pop.*
+sudo rm ~/Library/LaunchAgents/github.jdalt.pop.*
 sudo rm $TEMPLATES/*
 sudo rm /etc/resolver/dev

@@ -2,8 +2,12 @@
 
 TEMPLATES=templates/generated
 
-echo "Calling remote pow uninstall script"
-curl get.pow.cx/uninstall.sh | sh
+# Uninstall pow if there's a plist entry
+if [ -f ~/Library/LaunchAgents/cx.pow.powd.plist ];
+then
+  echo "Calling remote pow uninstall script"
+  curl get.pow.cx/uninstall.sh | sh
+fi
 
 # Copy ports from example file if none exist
 if [ ! -f config/ports.yml ];
@@ -13,7 +17,7 @@ then
 fi
 
 # Remove templated files if they already exist
-if [ -f $TEMPLATES/cx.pop.popd.plist ];
+if [ -f $TEMPLATES/github.jdalt.pop.popd.plist ];
 then
   sudo rm -r $TEMPLATES/
 fi
@@ -29,7 +33,7 @@ sudo chown root:wheel $TEMPLATES/*.plist
 
 # Move to LaunchAgents and start
 sudo ln -sfv $PWD/$TEMPLATES/*.plist ~/Library/LaunchAgents
-sudo launchctl load ~/Library/LaunchAgents/cx.pop.*
+sudo launchctl load ~/Library/LaunchAgents/github.jdalt.pop.*
 
 # Copy Resolver if it doesn't exist
 if [ -f /etc/resolver/dev ];
