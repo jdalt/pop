@@ -9,8 +9,10 @@ var log = bunyan.createLogger({
     level: 'trace',
     stream: process.stdout
   },{
+    type: 'rotating-file',
     level: 'info',
-    path: path.resolve(__dirname, 'log/dns.log')
+    path: path.resolve(__dirname, 'log/dns.log'),
+    period: '1h'
   }]
 })
 
