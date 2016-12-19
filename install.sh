@@ -51,5 +51,7 @@ fi
 sudo cp $TEMPLATES/dev /etc/resolver/
 
 echo "tail -f $PWD/log/proxy.log" >> bin/pop-tail-proxy-log
+echo "tail -f $PWD/log/dns.log" >> bin/pop-tail-dns-log
 chmod +x bin/pop-tail-proxy-log
+chmod +x bin/pop-tail-dns-log
 ln -sfv $PWD/bin/pop-* /usr/local/bin
