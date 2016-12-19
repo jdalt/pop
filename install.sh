@@ -9,11 +9,18 @@ then
   curl get.pow.cx/uninstall.sh | sh
 fi
 
+# Copy settings from example file if none exist
+if [ ! -f config/settings.js ];
+then
+  cp config/settings_example.js config/settings.js
+  echo "Copied example settings file to config/settings.js"
+fi
+
 # Copy ports from example file if none exist
 if [ ! -f config/ports.yml ];
 then
-  echo "Copied example ports file to config/ports.yml"
   cp config/ports_example.yml config/ports.yml
+  echo "Copied example ports file to config/ports.yml"
 fi
 
 # Remove templated files if they already exist
@@ -31,7 +38,7 @@ npm install
 # Permission daemons to root:wheel
 sudo chown root:wheel $TEMPLATES/*.plist
 
-# Move to LaunchAgents and start
+# Sym link plists to LaunchAgents and start
 sudo ln -sfv $PWD/$TEMPLATES/*.plist ~/Library/LaunchAgents
 sudo launchctl load ~/Library/LaunchAgents/github.jdalt.pop.*
 

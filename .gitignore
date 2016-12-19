@@ -1,4 +1,5 @@
 node_modules
 ports.yml
+settings.js
 log
 templates/generated/*
