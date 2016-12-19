@@ -21,4 +21,7 @@ An example file is written to `ports.yml` and excluded from version control. Mod
 
 ## Logging
 ---
-One of the chief advantages of using Pop is its dynamic logging. The log file is kept at `log/pop_proxy.log`. A node script to read the log called `formatLog` exists in the root directory of the repo.
+One of the chief advantages of using Pop is its dynamic logging. Both the Dns and Proxy server log to `log/dns.log` and `log/proxy.log` respectively.
+
+## /usr/local/bin
+3 scripts are linked into /usr/local/bin to make reading the logs easier: `pop-tail-proxy-log`, `pop-tail-dns-log`, and `pop-format-log`. You can run `pop-tail-proxy-log | pop-format-log` for fancified logs.
