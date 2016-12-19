@@ -12,14 +12,14 @@ fi
 # Copy settings from example file if none exist
 if [ ! -f config/settings.js ];
 then
-  cp config/settings_example.js config/settings.js
+  cp templates/settings_example.js config/settings.js
   echo "Copied example settings file to config/settings.js"
 fi
 
 # Copy ports from example file if none exist
 if [ ! -f config/ports.yml ];
 then
-  cp config/ports_example.yml config/ports.yml
+  cp templates/ports_example.yml config/ports.yml
   echo "Copied example ports file to config/ports.yml"
 fi
 
