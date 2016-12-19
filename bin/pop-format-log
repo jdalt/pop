@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+var readline = require('readline'),
+  colors = require('colors'),
+  _ = require('lodash'),
+  prettyjson = require('prettyjson'),
+  moment = require('moment')
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false
+});
+
+rl.on('line', function(line){
+  log = JSON.parse(line)
+  console.log(summaryString(log))
+})
+
+var allColors = {
+  0: 'red',
+  1: 'grey',
+  2: 'cyan',
+  3: 'grey',
+  4: 'green',
+  5: 'grey',
+  6: 'cyan',
+  7: 'yellow',
+  8: 'blue',
+  9: 'rainbow'
+}
+
+function summaryString(log) {
+  if(!log.type || !log.port) return log
+
+  var portColor = allColors[(log.port || 0) % 10]
+
+  if(log.type == 'response') {
+    var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.statusCode + ' ' +  log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+    var extra = prettyjson.render(extraDetails(log.responseBody, log.responseHeaders), { noColor: true})
+    return colors[portColor](topLine + '\n' + extra + '\n').inverse
+  } else if(log.type == 'error') {
+    var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+    var extra = prettyjson.render(extraDetails(log.body, log.headers), { noColor: true})
+    var error = prettyjson.render(log.error, { noColor: true})
+    return (topLine + '\n' + extra + '\n' + error.red + '\n').inverse
+  } else if(log.type == 'request') {
+    var topLine = log.uuid + ' @' + moment(log.time).format('hh:ss:SSS') + ' ' + log.method + ' [' + log.port + '] ' + log.host + '' + log.url
+    var extra = prettyjson.render(extraDetails(log.body, log.headers), { noColor: true})
+    return colors[portColor](topLine + '\n' + extra + '\n')
+  } else {
+    return log
+  }
+}
+
+function extraDetails(body, headers) {
+  if(body && !_.isEmpty(body)) {
+    return {
+      body: body,
+      headers: headers
+    }
+  }
+  return { headers: headers }
+}
+

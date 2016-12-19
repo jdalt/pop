@@ -2,4 +2,6 @@ node_modules
 ports.yml
 settings.js
 log
+bin/pop-tail-proxy-log
+bin/pop-tail-dns-log
 templates/generated/*
