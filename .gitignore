@@ -1,5 +1,5 @@
 node_modules
 ports.yml
+settings.js
 log
-install/dev
-install/*.plist
+templates/generated/*

@@ -1,8 +1,18 @@
 var dns = require('native-dns'),
   server = dns.createServer(),
+  path = require('path'),
   bunyan = require('bunyan')
 
-var log = bunyan.createLogger({name: 'dns'})
+var log = bunyan.createLogger({
+  name: 'dns',
+  streams: [{
+    level: 'trace',
+    stream: process.stdout
+  },{
+    level: 'info',
+    path: path.resolve(__dirname, 'log/dns.log')
+  }]
+})
 
 var reqCount = 0
 server.on('request', function (request, response) {
@@ -22,5 +32,5 @@ server.on('error', function (err, buff, req, res) {
 });
 
 var listenPort = 20565
-log.info('Listening on ' + listenPort)
-server.serve(20565);
+log.info('Pop DNS listening on ' + listenPort)
+server.serve(listenPort)

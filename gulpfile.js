@@ -4,7 +4,7 @@ var ejs = require('gulp-ejs')
 gulp.task('build', build)
 
 function build() {
-  return gulp.src('./install/*.ejs')
+  return gulp.src('./templates/*.ejs')
     .pipe(ejs(
       {
         dnsPort: 20565,
@@ -13,5 +13,5 @@ function build() {
       },
       { ext: '' }
     ))
-    .pipe(gulp.dest('./install/'))
+    .pipe(gulp.dest('./templates/generated/'))
 }
