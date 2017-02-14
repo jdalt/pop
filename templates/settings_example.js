@@ -2,7 +2,7 @@ module.exports = {
   "log": {
     "responseBody": false,
   },
-  "apps": {
+  "ports": {
     3001: {
       "log": {
         "responseBody": false
