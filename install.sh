@@ -35,12 +35,27 @@ nvm install 6.9.2 # installs (if missing) and switches node version
 npm install
 ./node_modules/gulp/bin/gulp.js build
 
-# Permission daemons to root:wheel
-sudo chown root:wheel $TEMPLATES/*.plist
+# Fix up permissions...
+sudo chown -R $USER $PWD
+# ...except permission to root:wheel for the firewall plist
+sudo chown root:wheel $TEMPLATES/github.jdalt.pop.firewall.plist
 
-# Sym link plists to LaunchAgents and start
-sudo ln -sfv $PWD/$TEMPLATES/*.plist ~/Library/LaunchAgents
-sudo launchctl load ~/Library/LaunchAgents/github.jdalt.pop.*
+# Symlink plists to LaunchAgents and start
+sudo rm -f ~/Library/LaunchAgents/github.jdalt.pop.* /Library/LaunchDaemons/github.jdalt.pop.*
+sudo ln -sfv $PWD/$TEMPLATES/github.jdalt.pop.firewall.plist /Library/LaunchDaemons
+
+# Cribbed from Pow
+if [ "$(sw_vers -productVersion | awk -F. '{ print $2 }')" -ge 10 ];
+then
+    sudo launchctl bootstrap system /Library/LaunchDaemons/github.jdalt.pop.firewall.plist 2>/dev/null
+    sudo launchctl enable system/github.jdalt.pop.firewall 2>/dev/null
+    sudo launchctl kickstart -k system/github.jdalt.pop.firewall 2>/dev/null
+else
+    sudo launchctl load -Fw /Library/LaunchDaemons/github.jdalt.pop.firewall.plist 2>/dev/null
+fi
+
+ln -sfv $PWD/$TEMPLATES/github.jdalt.pop.popd.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/github.jdalt.pop.popd.plist 2>/dev/null
 
 # Copy Resolver if it doesn't exist
 if [ -f /etc/resolver/dev ];
